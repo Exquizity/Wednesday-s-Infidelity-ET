@@ -13,4 +13,4 @@ DEBUG - Debug mode is active and you have access to their keybinds
 
 SOURCE - Mods source code
 
-PE104 - A version of the mod that you can add to your psych engines "Mods" Folder, it's unreccomended to do this because you miss out on alot of features.
+PE104 - A version of the mod that you can add to your psych engines "Mods" Folder, it's unreccomended to do this because you miss out on alot of features, and some levels are simply unplayable
