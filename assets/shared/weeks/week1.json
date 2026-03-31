@@ -1,0 +1,72 @@
+{
+	"storyName": "Your New Week",
+	"difficulties": "Normal",
+	"hideFreeplay": false,
+	"weekBackground": "stage",
+	"weekBefore": "",
+	"startUnlocked": true,
+	"hideStoryMode": false,
+	"songs": [
+		[
+			"wistfulness",
+			"dejectionM",
+			[
+				0,
+				0,
+				0
+			]
+		],
+		[
+			"dejection",
+			"mickeyInsane",
+			[
+				10,
+				0,
+				0
+			]
+		],
+		[
+			"unknown-suffering",
+			"lastDayM",
+			[
+				25,
+				0,
+				0
+			]
+		],
+		[
+			"cruel-world",
+			"lastDayM",
+			[
+				45,
+				0,
+				0
+			]
+		],
+		[
+			"last-day",
+			"satan",
+			[
+				255,
+				0,
+				0
+			]
+		],
+		[
+			"versiculus-iratus",
+			"face",
+			[
+				146,
+				113,
+				253
+			]
+		]
+	],
+	"weekCharacters": [
+		"bf",
+		"bf",
+		"gf"
+	],
+	"hiddenUntilUnlocked": false,
+	"weekName": "Custom Week"
+}

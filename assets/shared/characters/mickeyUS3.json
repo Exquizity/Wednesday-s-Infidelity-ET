@@ -1,0 +1,55 @@
+{
+	"animations": [
+		{
+			"loop": false,
+			"offsets": [0, 0],
+			"anim": "idle",
+			"fps": 24,
+			"name": "MIKI IDLE",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [74, 69],
+			"anim": "singLEFT",
+			"fps": 24,
+			"name": "MIKI LEFT",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [-27, -17],
+			"anim": "singDOWN",
+			"fps": 24,
+			"name": "MIKI DOWN",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [15, 50],
+			"anim": "singUP",
+			"fps": 24,
+			"name": "Miki UP",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [-237, 25],
+			"anim": "singRIGHT",
+			"fps": 24,
+			"name": "MIKI RIGHT",
+			"indices": []
+		}
+	],
+	"vocals_file": "",
+	"no_antialiasing": false,
+	"image": "characters/mickeyUS3",
+	"position": [-200, -20],
+	"healthicon": "mickeyFinal",
+	"flip_x": false,
+	"healthbar_colors": [0, 0, 0],
+	"camera_position": [0, 50],
+	"sing_duration": 6.1,
+	"scale": 1,
+	"_editor_isPlayer": false
+}

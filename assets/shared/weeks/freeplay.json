@@ -1,0 +1,117 @@
+{
+	"songs": [
+		[
+			"dragged",
+			"mickeyprison",
+			[
+				146,
+				113,
+				253
+			]
+		],
+		[
+			"hellhole",
+			"mickeyFinal",
+			[
+				146,
+				113,
+				253
+			]
+		],
+		[
+			"megrims",
+			"oswaldsmile",
+			[
+				146,
+				113,
+				253
+			]
+		],
+		[
+			"new-vesania",
+			"mickeyInsane",
+			[
+				146,
+				113,
+				253
+			]
+		],
+		[
+			"perpetual-suffering",
+			"mickeyInsane",
+			[
+				146,
+				113,
+				253
+			]
+		],
+		[
+			"tristophobia",
+			"dejectionM",
+			[
+				146,
+				113,
+				253
+			]
+		],
+		[
+			"unbearable-pain",
+			"mouse",
+			[
+				146,
+				113,
+				253
+			]
+		],
+		[
+			"nightcore",
+			"",
+			[
+				146,
+				113,
+				253
+			]
+		],
+		[
+			"Another-Side-To-The-Story",
+			"Oswald",
+			[
+				146,
+				113,
+				253
+			]
+		],
+		[
+			"dejection-old",
+			"face",
+			[
+				146,
+				113,
+				253
+			]
+		],
+		[
+			"last-day-old",
+			"face",
+			[
+				146,
+				113,
+				253
+			]
+		]
+	],
+	"hiddenUntilUnlocked": false,
+	"hideFreeplay": false,
+	"weekBackground": "stage",
+	"difficulties": "",
+	"weekCharacters": [
+		"bf",
+		"bf",
+		"gf"
+	],
+	"storyName": "freeplay",
+	"weekName": "Custom Week",
+	"hideStoryMode": true,
+	"weekBefore": "tutorial",
+	"startUnlocked": true
+}

@@ -1,0 +1,63 @@
+{
+	"animations": [
+		{
+			"offsets": [-80, 97],
+			"loop": false,
+			"fps": 18,
+			"anim": "singDOWN",
+			"indices": [],
+			"name": "Mouse Down"
+		},
+		{
+			"offsets": [31, -89],
+			"loop": false,
+			"fps": 18,
+			"anim": "singUP",
+			"indices": [],
+			"name": "Mouse Up"
+		},
+		{
+			"offsets": [-136, -45],
+			"loop": false,
+			"fps": 18,
+			"anim": "singRIGHT",
+			"indices": [],
+			"name": "Mouse Rigth"
+		},
+		{
+			"offsets": [19, -10],
+			"loop": false,
+			"fps": 18,
+			"anim": "singLEFT",
+			"indices": [],
+			"name": "Mouse Left"
+		},
+		{
+			"offsets": [60, 20],
+			"loop": false,
+			"fps": 18,
+			"anim": "idle",
+			"indices": [],
+			"name": "Mouse idle"
+		},
+		{
+			"loop": false,
+			"offsets": [50, -110],
+			"anim": "laugh",
+			"fps": 25,
+			"name": "laugh",
+			"indices": []
+		}
+	],
+	"vocals_file": "",
+	"no_antialiasing": true,
+	"image": "characters/dejectionoswald",
+	"position": [-170, 50],
+	"healthicon": "oswaldsmile",
+	"flip_x": false,
+	"healthbar_colors": [81, 84, 81],
+	"camera_position": [200, -40],
+	"sing_duration": 6.1,
+	"scale": 1,
+	"_editor_isPlayer": false
+}

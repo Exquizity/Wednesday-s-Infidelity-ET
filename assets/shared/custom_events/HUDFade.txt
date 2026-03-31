@@ -1,0 +1,2 @@
+Val 1 = 1 to fade in, 0 to fade out
+Val 2 = How long this takes

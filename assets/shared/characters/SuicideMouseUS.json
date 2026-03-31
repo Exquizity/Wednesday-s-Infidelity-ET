@@ -1,0 +1,95 @@
+{
+	"animations": [
+		{
+			"loop": false,
+			"offsets": [-170, -20],
+			"anim": "idle",
+			"fps": 24,
+			"name": "Suicide (giving up) Idle",
+			"indices": [0, 1, 2, 3, 4, 5, 6, 7, 8]
+		},
+		{
+			"loop": true,
+			"offsets": [-170, -20],
+			"anim": "idle-loop",
+			"fps": 24,
+			"name": "Suicide (giving up) Idle",
+			"indices": [9, 10]
+		},
+		{
+			"loop": false,
+			"offsets": [9, 70],
+			"anim": "singLEFT",
+			"fps": 24,
+			"name": "Suicide (giving up) Left",
+			"indices": [0, 1, 2, 3, 4, 5, 6, 7, 8]
+		},
+		{
+			"loop": false,
+			"offsets": [8, 70],
+			"anim": "singLEFT-alt",
+			"fps": 24,
+			"name": "Suicide (giving up) Left (hit)",
+			"indices": [0, 1, 2, 3, 4, 5, 6, 7, 8]
+		},
+		{
+			"loop": false,
+			"offsets": [-112, 87],
+			"anim": "singRIGHT",
+			"fps": 24,
+			"name": "Suicide (giving up) Rigth",
+			"indices": [0, 1, 2, 3, 4, 5, 6, 7, 8]
+		},
+		{
+			"loop": false,
+			"offsets": [-111, 87],
+			"anim": "singRIGHT-alt",
+			"fps": 24,
+			"name": "Suicide (giving up) Rigth (hit)",
+			"indices": [0, 1, 2, 3, 4, 5, 6, 7, 8]
+		},
+		{
+			"loop": false,
+			"offsets": [-33, -24],
+			"anim": "singDOWN",
+			"fps": 24,
+			"name": "Suicide (giving up) Down",
+			"indices": [0, 1, 2, 3, 4, 5, 6, 7, 8]
+		},
+		{
+			"loop": false,
+			"offsets": [-33, -24],
+			"anim": "singDOWN-alt",
+			"fps": 24,
+			"name": "Suicide (giving up) Down (hit)",
+			"indices": [0, 1, 2, 3, 4, 5, 6, 7, 8]
+		},
+		{
+			"loop": false,
+			"offsets": [-100, 93],
+			"anim": "singUP",
+			"fps": 24,
+			"name": "Suicide (giving up) Up",
+			"indices": [0, 1, 2, 3, 4, 5, 6, 7, 8]
+		},
+		{
+			"loop": false,
+			"offsets": [-101, 94],
+			"anim": "singUP-alt",
+			"fps": 24,
+			"name": "Suicide (giving up) Up (hit)",
+			"indices": [0, 1, 2, 3, 4, 5, 6, 7, 8]
+		}
+	],
+	"vocals_file": "",
+	"no_antialiasing": false,
+	"image": "characters/sadge (REANIMATED)",
+	"position": [-200, 40],
+	"healthicon": "sadge",
+	"flip_x": false,
+	"healthbar_colors": [40, 40, 40],
+	"camera_position": [220, 100],
+	"sing_duration": 5.1,
+	"scale": 1,
+	"_editor_isPlayer": false
+}
