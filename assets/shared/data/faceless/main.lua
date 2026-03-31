@@ -39,14 +39,13 @@ function onCreate()
 end
 
 function onStepHit()
-    if curStep == 54 or curStep == 125 or curStep == 196 or curStep == 267 then
+    if curStep == 60 or curStep == 139 or curStep == 218 or curStep == 297 then
         doTweenAlpha('voiddd', 'void', 0, 1, 'sine')
     end
 
-    if curStep == 88 or curStep == 160 or curStep == 228 then
+    if curStep == 98 or curStep == 178 or curStep == 253 then
         doTweenAlpha('voiddd', 'void', 1, 1, 'sine')
     end
-
 end
 
 function goodNoteHit(id, direction, noteType, isSustainNote)
@@ -56,7 +55,80 @@ function goodNoteHit(id, direction, noteType, isSustainNote)
 end
 
 function opponentNoteHit(id, direction, noteType, isSustainNote)
-    if getProperty('health') > 0.11 then
-       setProperty('health', getProperty('health') - 0.016)
+    if getProperty('dad.curCharacter') == "mickeyUS3" then
+        if getProperty('health') > 0.3 then
+            setProperty('health', getProperty('health') - 0.015)
+        end
     end
+
+    local currentDadCharacter = getProperty('dad.curCharacter') or getProperty('dad.character') or ''
+    if currentDadCharacter == 'mickeyUS3' then
+        shakeCameras(0.65, 0.65, 0.1)
+    end
+end
+
+function onTimerCompleted(tag, loops, loopsLeft)
+    if tag == 'shake_return' then
+        pcall(function() doTweenX('shake_hud_x_in', 'camHUD', baseHudPositionX, 0.1 / 2, 'quadInOut') end)
+        pcall(function() doTweenY('shake_hud_y_in', 'camHUD', baseHudPositionY, 0.1 / 2, 'quadInOut') end)
+        pcall(function() doTweenX('shake_game_x_in', 'camGame', baseGamePositionX, 0.1 / 2, 'quadInOut') end)
+        pcall(function() doTweenY('shake_game_y_in', 'camGame', baseGamePositionY, 0.1 / 2, 'quadInOut') end)
+    end
+end
+
+function onCreatePost()
+    if not savedBasePositions then
+        baseHudPositionX = getProperty('camHUD.x') or 0
+        baseHudPositionY = getProperty('camHUD.y') or 0
+        baseGamePositionX = getProperty('camGame.x') or 0
+        baseGamePositionY = getProperty('camGame.y') or 0
+        savedBasePositions = true
+    end
+end
+
+local function attemptCameraShake(camera, intensity, duration)
+    if type(cameraShake) == "function" then
+        local success, _ = pcall(cameraShake, camera, intensity, duration)
+        return success
+    end
+    return false
+end
+
+local function performPixelShake(offsetX, offsetY, duration)
+    if type(cancelTween) == "function" then
+        pcall(cancelTween, 'shake_hud_x_out')
+        pcall(cancelTween, 'shake_hud_y_out')
+        pcall(cancelTween, 'shake_game_x_out')
+        pcall(cancelTween, 'shake_game_y_out')
+        pcall(cancelTween, 'shake_hud_x_in')
+        pcall(cancelTween, 'shake_hud_y_in')
+        pcall(cancelTween, 'shake_game_x_in')
+        pcall(cancelTween, 'shake_game_y_in')
+    end
+
+    local randomX = (math.random() * 2 - 1) * offsetX
+    local randomY = (math.random() * 2 - 1) * offsetY
+
+    local halfDuration = duration / 2
+
+    pcall(function() doTweenX('shake_hud_x_out', 'camHUD', baseHudPositionX + randomX, halfDuration, 'quadInOut') end)
+    pcall(function() doTweenY('shake_hud_y_out', 'camHUD', baseHudPositionY + randomY, halfDuration, 'quadInOut') end)
+    pcall(function() doTweenX('shake_game_x_out', 'camGame', baseGamePositionX + randomX, halfDuration, 'quadInOut') end)
+    pcall(function() doTweenY('shake_game_y_out', 'camGame', baseGamePositionY + randomY, halfDuration, 'quadInOut') end)
+
+    if type(runTimer) == "function" then
+        pcall(runTimer, 'shake_return', halfDuration)
+    end
+end
+
+local function shakeCameras(pixelOffsetX, pixelOffsetY, duration)
+    pixelOffsetX = pixelOffsetX or 0.7
+    pixelOffsetY = pixelOffsetY or 0.7
+    duration = duration or 0.1
+
+    local successHudShake = attemptCameraShake('camHUD', math.max(pixelOffsetX, pixelOffsetY) / 100, duration)
+    local successGameShake = attemptCameraShake('camGame', math.max(pixelOffsetX, pixelOffsetY) / 100, duration)
+    if successHudShake and successGameShake then return end
+
+    performPixelShake(pixelOffsetX, pixelOffsetY, duration)
 end
