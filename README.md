@@ -3,3 +3,5 @@ Almost none of the sprites, backgrounds or anything like that belong to me and i
 Credits are in the credits tab of the game, and also at the start of each level
 
 The original mod can be found here: https://gamebanana.com/mods/343688
+
+This mod's source code will be available at a later date, only compiled builds are able to be downloaded, and you will not be able to get the source code from older versions
