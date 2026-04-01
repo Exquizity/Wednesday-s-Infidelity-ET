@@ -1,49 +1,49 @@
 {
 	"animations": [
 		{
-			"offsets": [0, 0],
 			"loop": false,
-			"fps": 24,
+			"offsets": [0, 0],
 			"anim": "idle",
-			"indices": [],
-			"name": "OSWALD IDLE"
+			"fps": 24,
+			"name": "OSWALD IDLE",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [58, 49],
-			"loop": false,
-			"fps": 24,
 			"anim": "singLEFT",
-			"indices": [],
-			"name": "Oswald Left"
+			"fps": 24,
+			"name": "Oswald Left",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [-110, 9],
-			"loop": false,
-			"fps": 24,
 			"anim": "singDOWN",
-			"indices": [],
-			"name": "Oswald Down"
+			"fps": 24,
+			"name": "Oswald Down",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [-216, 30],
-			"loop": false,
-			"fps": 24,
 			"anim": "singUP",
-			"indices": [],
-			"name": "Oswald Up"
+			"fps": 24,
+			"name": "Oswald Up",
+			"indices": []
 		},
 		{
-			"offsets": [-209, -74],
 			"loop": false,
-			"fps": 24,
+			"offsets": [-209, -74],
 			"anim": "singRIGHT",
-			"indices": [],
-			"name": "OSWALD RIGHT"
+			"fps": 24,
+			"name": "OSWALD RIGHT",
+			"indices": []
 		},
 		{
 			"offsets": [0, 0],
 			"indices": [],
-			"fps": 20,
+			"fps": 24,
 			"anim": "",
 			"loop": false,
 			"name": ""
@@ -51,7 +51,7 @@
 		{
 			"offsets": [30, 84],
 			"indices": [],
-			"fps": 20,
+			"fps": 24,
 			"anim": "intro",
 			"loop": false,
 			"name": "OSWALD DIALOGUE INTRO"
