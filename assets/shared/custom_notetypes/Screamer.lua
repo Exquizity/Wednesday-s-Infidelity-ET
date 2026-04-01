@@ -2,9 +2,7 @@ function onCreate()
     for i = 0, getProperty('unspawnNotes.length')-1 do
         if getPropertyFromGroup('unspawnNotes', i, 'noteType') == 'Screamer' then
             setPropertyFromGroup('unspawnNotes', i, 'texture', 'SCREAMERNOTE_assets')
-            if getPropertyFromGroup('unspawnNotes', i, 'mustPress') then
-                setPropertyFromGroup('unspawnNotes', i, 'ignoreNote', true)
-            end
+            setPropertyFromGroup('unspawnNotes', i, 'ignoreNote', true) 
         end
     end
     makeAnimatedLuaSprite('Screamer', 'SCREAMER', 0, 0)

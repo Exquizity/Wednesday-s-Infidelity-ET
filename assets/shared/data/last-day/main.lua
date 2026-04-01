@@ -1,7 +1,6 @@
 local bgdarkonzoom = false
 local lastBFChar = ''
 local draininghealthdamage = 0.006
-
 function onCreate()
     removeLuaSprite('BG')
     setProperty('gf.visible', false)

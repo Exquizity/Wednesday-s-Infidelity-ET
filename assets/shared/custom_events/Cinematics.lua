@@ -2,7 +2,7 @@
 ---@funkinScript
 
 --[[
-    Creator: RamenDominoes (https://gamebanana.com/members/2135195)
+    Creator: RamenDominoes[](https://gamebanana.com/members/2135195)
     Version: 3.3.3 (Compatible with psych 1.0)
 
     Thanks for downloadin' this shit I love ya <3
@@ -52,10 +52,10 @@ function onEvent(eventName, value1, value2)
         local barProperties = split(value1, ",") -- Thickness, Speed
         local cinematicType = tonumber(value2)
 
-        doTweenY("moveTopBar", "topBar", (tonumber(barProperties[1]) * 0.5) - 1, tonumber(barProperties[2]), "quadOut")
-        doTweenY("scaleTopBar", "topBar.scale", tonumber(barProperties[1]), tonumber(barProperties[2]), "quadOut")
-        doTweenY("moveBottomBar", "bottomBar", screenHeight - (tonumber(barProperties[1]) * 0.5), tonumber(barProperties[2]), "quadOut")
-        doTweenY("scaleBottomBar", "bottomBar.scale", tonumber(barProperties[1]), tonumber(barProperties[2]), "quadOut")
+        doTweenY("moveTopBar", "topBar", (tonumber(barProperties[1]) * 0.5) - 1, tonumber(barProperties[2]), "sineInOut")
+        doTweenY("scaleTopBar", "topBar.scale", tonumber(barProperties[1]), tonumber(barProperties[2]), "sineInOut")
+        doTweenY("moveBottomBar", "bottomBar", screenHeight - (tonumber(barProperties[1]) * 0.5), tonumber(barProperties[2]), "sineInOut")
+        doTweenY("scaleBottomBar", "bottomBar.scale", tonumber(barProperties[1]), tonumber(barProperties[2]), "sineInOut")
 
         if tonumber(barProperties[1]) > 0 then
             setObjectOrder("topBar", cinematicType == 2 and getObjectOrder(orderCheck.overNotes) + 1 or getObjectOrder(orderCheck.underNotes) - 2)
@@ -67,11 +67,11 @@ function onEvent(eventName, value1, value2)
 
             if fadeHUD then
                 for i = 1, #hudItems.opaque do
-                    doTweenAlpha("opaqueFade" .. i, hudItems.opaque[i], 0, tonumber(barProperties[2]), "quadOut")
+                    doTweenAlpha("opaqueFade" .. i, hudItems.opaque[i], 0, tonumber(barProperties[2]), "sineInOut")
                 end
 
                 for i = 1, #hudItems.nonOpaque do
-                    doTweenAlpha("nonOpaqueFade" .. i, hudItems.nonOpaque[i], 0, tonumber(barProperties[2]), "quadOut")
+                    doTweenAlpha("nonOpaqueFade" .. i, hudItems.nonOpaque[i], 0, tonumber(barProperties[2]), "sineInOut")
                 end
             end
 
@@ -90,11 +90,11 @@ function onEvent(eventName, value1, value2)
             moveNotes = true
 
             for i = 1, #hudItems.opaque do
-                doTweenAlpha("opaqueFade"..i, hudItems.opaque[i], 1, tonumber(barProperties[2]), "quadOut")
+                doTweenAlpha("opaqueFade"..i, hudItems.opaque[i], 1, tonumber(barProperties[2]), "sineInOut")
             end
 
             for i = 1, #hudItems.nonOpaque do
-                doTweenAlpha("nonOpaqueFade"..i, hudItems.nonOpaque[i], hpOpacity, tonumber(barProperties[2]), "quadOut")
+                doTweenAlpha("nonOpaqueFade"..i, hudItems.nonOpaque[i], hpOpacity, tonumber(barProperties[2]), "sineInOut")
             end
 
             for i = 0, 3 do
@@ -122,6 +122,7 @@ function luaGraphic(tag,x,y)
     else
         setObjectCamera(tag, "HUD")
     end
-    setProperty(tag..".alpha", 1) 
+    setProperty(tag..".alpha", 1)
+    setProperty(tag..".antialiasing", false) -- fixes bottom bar (and top bar) being slightly seethrough
     addLuaSprite(tag)
 end
