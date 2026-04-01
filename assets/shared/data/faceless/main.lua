@@ -50,7 +50,7 @@ end
 
 function goodNoteHit(id, direction, noteType, isSustainNote)
     if isSustainNote then
-        setProperty('health', getProperty('health') + 0.008)
+        setProperty('health', getProperty('health') + 0.00795)
     end
 end
 
