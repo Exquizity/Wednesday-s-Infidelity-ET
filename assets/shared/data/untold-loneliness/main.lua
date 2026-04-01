@@ -4,7 +4,7 @@ function onCreate()
     setScrollFactor('Vignette', 1, 1)
     setObjectCamera('Vignette', 'other');
     addLuaSprite('Vignette', false)
-    makeLuaSprite('void', '', -250, -250)
+    makeLuaSprite('void', '', -300, -300)
     makeGraphic('void', 2200, 2200, '000000')
     setScrollFactor('void', 0, 0)
     addLuaSprite('void', true)
@@ -23,6 +23,18 @@ function onCreate()
     setProperty('timeBar.visible', false)
     setProperty('timeBarBG.visible', false)
     setProperty('timeTxt.visible', false)
-    setProperty('dad.alpha', 0.2)
-    setProperty('boyfriend.alpha', 0.2)
+    setProperty('dad.alpha', 0.8)
+    setProperty('boyfriend.alpha', 0.8)
+end
+function onSectionHit()
+    if curSection == 18 then
+    setProperty('dad.alpha', 0.9)
+    setProperty('boyfriend.alpha', 0.9)
+    setProperty('void.alpha', 0.7 )
+    end
+    if curSection == 36 then
+    setProperty('dad.alpha', 1)
+    setProperty('boyfriend.alpha', 1)
+    setProperty('void.alpha', 0 )
+    end
 end
