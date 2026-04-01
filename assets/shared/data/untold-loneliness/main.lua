@@ -1,3 +1,4 @@
+local _t=''
 function onCreate()
     makeLuaSprite('Vignette', 'suicideStreet/vignette', 0, 0)
     scaleLuaSprite('Vignette', 1, 1)
@@ -25,7 +26,23 @@ function onCreate()
     setProperty('timeTxt.visible', false)
     setProperty('dad.alpha', 0.8)
     setProperty('boyfriend.alpha', 0.8)
+    makeLuaText('text', 'test', 1250, 0, 625)
+	setTextAlignment('text', 'Center')
+    setTextString('text', '')
+	addLuaText('text')
+	setTextSize('text', 40)
+    setTextFont('vcr')
+    setProperty('text.alpha', 0)
 end
+
+function onTimerCompleted(tag,l,ll)
+    if tag:sub(1,2)=='tw' then local i=tonumber(tag:sub(3)) setTextString('text',_t:sub(1,i)) end
+    if tag=='twfade' then doTweenAlpha('texttween','text',_fa,_fd,'sine') end
+    if tag == 'twred' then
+    doTweenColor('textcolor', 'text', 'FF0000', 0.3, 'sine')
+    end
+end
+
 function onSectionHit()
     if curSection == 18 then
     setProperty('dad.alpha', 0.9)
@@ -37,4 +54,65 @@ function onSectionHit()
     setProperty('boyfriend.alpha', 1)
     setProperty('void.alpha', 0 )
     end
+end
+
+function onStepHit()
+if curStep == 498 then
+    doTweenAlpha('texttween', 'text', 1, 0.5, 'sine')
+    _t = 'Alright, alright'
+    _fa = 0      -- (0 = invisible, , 1 = visible)
+    _fd = 0.1   
+    for i=1,#_t do runTimer('tw'..i, i*0.08, 1) end
+    runTimer('twfade', #_t*0.09 + 0.2, 1)
+end
+if curStep == 519 then
+    doTweenAlpha('texttween', 'text', 1, 0.5, 'sine')
+    _t = "Let's get this over with."
+    _fa = 0      
+    _fd = 1   
+    for i=1,#_t do runTimer('tw'..i, i*0.06, 1) end
+    runTimer('twfade', #_t*0.09 + 0.3, 1)
+runTimer('twred', 16*0.06 + 0.3, 1)
+end
+if curStep == 832 then
+for i = 0, 7 do
+    setPropertyFromGroup('strumLineNotes', i, 'alpha', 0)
+end
+    setProperty('text.alpha', 1)
+    setProperty('healthBar.alpha', 0)
+    setProperty('healthBarBG.alpha', 0)
+    setProperty('iconP1.alpha', 0)
+    setProperty('iconP2.alpha', 0)
+    setProperty('scoreTxt.alpha', 0)
+    setProperty('void.alpha', 1)
+    setTextString('text', 'UN')
+end
+if curStep == 835 then
+    setTextString('text', 'UNTOLD')
+end
+if curStep == 840 then
+    setTextString('text', 'UNTOLD LONE')
+end
+if curStep == 843 then
+    setTextString('text', 'UNTOLD LONELI')
+end
+if curStep == 844 then
+    setTextString('text', 'UNTOLD LONELI')
+end
+if curStep == 845 then
+    setTextString('text', 'UNTOLD LONELINESS')
+end
+if curStep == 848 then
+    for i = 0, 7 do
+    setPropertyFromGroup('strumLineNotes', i, 'alpha', 1)
+end
+    setProperty('text.alpha', 0)
+    setProperty('healthBar.alpha', 1)
+    setProperty('healthBarBG.alpha', 1)
+    setProperty('iconP1.alpha', 1)
+    setProperty('iconP2.alpha', 1)
+    setProperty('scoreTxt.alpha', 1)
+    setProperty('void.alpha', 0)
+    setTextString('text', '')
+end
 end
