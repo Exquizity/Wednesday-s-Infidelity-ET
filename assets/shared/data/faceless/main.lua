@@ -16,16 +16,10 @@ function onCreate()
     makeLuaSprite('void2', '', -200, -200)
     makeGraphic('void2', 1920, 1080, '000000')
     setScrollFactor('void2', 0, 0)
-    addLuaSprite('void2', false)
-    setObjectCamera('void2', 'camGame')
-    makeLuaSprite('void3', '', -200, -200)
-    makeGraphic('void3', 1920, 1080, '000000')
-    setScrollFactor('void3', 0, 0)
-    addLuaSprite('void3', false)
-    setObjectCamera('void2', 'camGame')
+    addLuaSprite('void2', true)
+    setObjectCamera('void2', 'other')
     setProperty('void.alpha', 1)
     setProperty('void2.alpha', 0)
-    setProperty('void3.alpha', 0)
     setProperty('gf.visible', false)
     setProperty('scoreTxt.alpha', 0)
     setProperty('showComboNum', true)
@@ -38,41 +32,16 @@ function onCreate()
     
 end
 
-function onStepHit()
-    if curStep == 60 or curStep == 139 or curStep == 218 or curStep == 297 then
-        doTweenAlpha('voiddd', 'void', 0, 1, 'sine')
-    end
-
-    if curStep == 98 or curStep == 178 or curStep == 253 then
-        doTweenAlpha('voiddd', 'void', 1, 1, 'sine')
-    end
-end
-
-function goodNoteHit(id, direction, noteType, isSustainNote)
-    if isSustainNote then
-        setProperty('health', getProperty('health') + 0.008)
-    end
-end
-
-function opponentNoteHit(id, direction, noteType, isSustainNote)
-    if getProperty('dad.curCharacter') == "mickeyUS3" then
-        if getProperty('health') > 0.3 then
-            setProperty('health', getProperty('health') - 0.015)
-        end
-    end
-
-    local currentDadCharacter = getProperty('dad.curCharacter') or getProperty('dad.character') or ''
-    if currentDadCharacter == 'mickeyUS3' then
-        shakeCameras(0.65, 0.65, 0.1)
-    end
-end
-
 function onTimerCompleted(tag, loops, loopsLeft)
     if tag == 'shake_return' then
         pcall(function() doTweenX('shake_hud_x_in', 'camHUD', baseHudPositionX, 0.1 / 2, 'quadInOut') end)
         pcall(function() doTweenY('shake_hud_y_in', 'camHUD', baseHudPositionY, 0.1 / 2, 'quadInOut') end)
         pcall(function() doTweenX('shake_game_x_in', 'camGame', baseGamePositionX, 0.1 / 2, 'quadInOut') end)
         pcall(function() doTweenY('shake_game_y_in', 'camGame', baseGamePositionY, 0.1 / 2, 'quadInOut') end)
+    end
+
+    if tag == 'flicker' then
+        doTweenAlpha('flickertween', 'void2', 0, 0.03, 'sine')
     end
 end
 
@@ -131,4 +100,79 @@ local function shakeCameras(pixelOffsetX, pixelOffsetY, duration)
     if successHudShake and successGameShake then return end
 
     performPixelShake(pixelOffsetX, pixelOffsetY, duration)
+end
+
+local function flickercam()
+    setProperty('void2.alpha', 1)
+    runTimer('flicker', 0.02)
+end
+
+
+function onStepHit()
+    if curStep == 48 or curStep == 113 or curStep == 177 or curStep == 241 then
+        doTweenAlpha('voiddd', 'void', 0, 1, 'sine')
+    end
+
+    if curStep == 72 or curStep == 136 or curStep == 200 then
+        doTweenAlpha('voiddd', 'void', 1, 1, 'sine')
+    end
+
+    if curStep == 633 then
+        setVar('ignoreCam', true)
+        setProperty('isCameraOnForcedPos', true)
+        doTweenX('camX', 'camFollow', 75, 0.01, 'circInOut')
+        doTweenY('camY', 'camFollow', 133.33333, 0.01, 'circInOut')
+    end
+
+    if curStep == 635 then
+        doTweenX('camX', 'camFollow', 150, 0.01, 'circInOut')
+        doTweenY('camY', 'camFollow', 266.666, 0.01, 'circInOut')
+    end
+
+    if curStep == 637 then
+        doTweenX('camX', 'camFollow', 225, 1, 'circInOut')
+        doTweenY('camY', 'camFollow', 400, 1, 'circInOut')
+    end
+
+    if curStep == 705 then
+        doTweenX('camX', 'camFollow', 15, 1.5, 'sine')
+        doTweenY('camY', 'camFollow', 470, 1, 'circInOut')
+    end
+
+    if curStep == 760 then
+        doTweenX('camX', 'camFollow', 325, 1.5, 'sine')
+        doTweenY('camY', 'camFollow', 460, 1, 'circInOut')
+    end
+
+    if curStep == 870 then
+        setVar('ignoreCam', false)
+        setProperty('isCameraOnForcedPos', false)
+    end
+
+    if curStep == 1089 or curStep == 1096 or curStep == 1104 or curStep == 1112 or curStep == 1121 or curStep == 1125 or curStep == 1129 or curStep == 1133 or curStep == 1137 or curStep == 1345 or curStep == 1353 or curStep == 1361 or curStep == 1369 or curStep == 1377 or curStep == 1381 or curStep == 1385 or curStep == 1389 or curStep == 1393 then
+        -- OH MY GOD I REGRET NOT MAKING A TABLE IVE SPENT LIKE 5 MINUTES JUST TYPING ALLAT
+        flickercam()
+    end
+
+    if curStep == 1423 then
+        triggerEvent('HUD Bounce', '', '0.7')
+        doTweenAlpha('flickertween', 'void2', 1, 0.16, 'sine')
+    end
+
+end
+
+function goodNoteHit(id, direction, noteType, isSustainNote)
+    if isSustainNote then
+        setProperty('health', getProperty('health') + 0.008)
+    end
+end
+
+function opponentNoteHit(id, direction, noteType, isSustainNote)
+    if getProperty('dad.curCharacter') == "mickeyUS3" then
+        if getProperty('health') > 0.2 then
+            setProperty('health', getProperty('health') - 0.0141)
+        end
+    end
+
+    shakeCameras(0.65, 0.65, 0.1)
 end
