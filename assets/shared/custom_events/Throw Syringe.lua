@@ -12,7 +12,7 @@ function onCreatePost()
     addOffset('syringemickey','dodge', 0, 0)
     addLuaSprite('syringemickey', true)
 
-    setProperty('syringemickey.alpha', 1)
+    setProperty('syringemickey.alpha', 0)
 end
 
 function onEvent(eventName, value1, value2)
