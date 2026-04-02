@@ -9,7 +9,7 @@ local info = --Song Author, Sprite Maker, Charters, Extra Info
     '\nSprites By: Wednesdays Infidelity'..
     '\nCharted By: Exquizity & NamsJr6'..
     '\nMickey Voice Acted by Exquizity'..
-    '\n\nMICKEYS VOICE ACTING ISNT PART OF THE OFFICIAL COVER'
+    '\nMICKEYS VOICE ACTING ISNT PART OF THE OFFICIAL COVER'
 
 
 function onCreatePost()
