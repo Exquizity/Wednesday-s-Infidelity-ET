@@ -1,51 +1,51 @@
 {
 	"animations": [
 		{
-			"loop": true,
 			"offsets": [79, 157],
+			"loop": true,
+			"fps": 24,
 			"anim": "singUP",
-			"fps": 24,
-			"name": "up",
-			"indices": []
+			"indices": [],
+			"name": "up"
 		},
 		{
-			"loop": true,
 			"offsets": [82, 69],
+			"loop": true,
+			"fps": 24,
 			"anim": "singLEFT",
-			"fps": 24,
-			"name": "left",
-			"indices": []
+			"indices": [],
+			"name": "left"
 		},
 		{
-			"loop": true,
 			"offsets": [30, -98],
+			"loop": true,
+			"fps": 24,
 			"anim": "singDOWN",
-			"fps": 24,
-			"name": "down",
-			"indices": []
+			"indices": [],
+			"name": "down"
 		},
 		{
-			"loop": true,
 			"offsets": [0, 0],
-			"anim": "idle",
+			"loop": true,
 			"fps": 24,
-			"name": "idle",
-			"indices": []
+			"anim": "idle",
+			"indices": [],
+			"name": "idle"
 		},
 		{
-			"loop": true,
 			"offsets": [-176, 41],
-			"anim": "singRIGHT",
+			"loop": true,
 			"fps": 24,
-			"name": "right",
-			"indices": []
+			"anim": "singRIGHT",
+			"indices": [],
+			"name": "right"
 		}
 	],
 	"vocals_file": "",
 	"no_antialiasing": false,
 	"image": "characters/Faceless",
 	"position": [-230, 100],
-	"healthicon": "mickeyFinal",
+	"healthicon": "faceless",
 	"flip_x": false,
 	"healthbar_colors": [255, 0, 0],
 	"camera_position": [120, 70],
