@@ -38,11 +38,24 @@ function onCreate()
 	addLuaSprite('lightthing', false)
     setProperty('lightthing.alpha', 0)
 
+    makeLuaSprite('RED', 'suicideStreet/RedVG', 0, 0)
+	scaleLuaSprite('RED', 1, 1)
+	setScrollFactor('RED', 1, 1)
+	addLuaSprite('RED', false)
+    setObjectCamera('RED', 'other')
+    setProperty('RED.alpha', 0)
+
     makeLuaSprite('void', '', -200, -200)
     makeGraphic('void', 4000, 4000, '000000') 
     setScrollFactor('void', 0, 0)
     addLuaSprite('void', true) 
     setProperty('void.alpha', 1) 
+
+    makeLuaText('text', '', 1250, 0, 650)
+	setTextAlignment('text', 'Center')
+	addLuaText('text')
+	setTextSize('text', 28)
+    setProperty('text.alpha', 0)
 
     setProperty('gf.visible', false)
     setProperty('scoreTxt.alpha', 0)
@@ -120,6 +133,46 @@ function onSectionHit()
     if curSection == 8 then
         doTweenAlpha('voidtween', 'void', 0, 3, 'linear')
     end
+
+    if curSection == 24 then
+        local keyBind = callMethod('controls.keyboardBinds.get', {'dodge'})
+        local keyName = (keyBind and keyBind[1]) and callMethodFromClass('backend.InputFormatter', 'getKeyName', {keyBind[1]}) or '---'
+
+        setTextString('text', "Your dodge keybind is: " .. keyName)
+        doTweenAlpha('txttween', 'text', 1, 1, 'sine')
+
+        if downscroll == false then
+            doTweenAlpha('healthBarFade', 'healthBar', 0, 1, 'linear')
+            doTweenAlpha('healthBarBGFade', 'healthBarBG', 0, 1, 'linear')
+            doTweenAlpha('iconP1Fade', 'iconP1', 0, 1, 'linear')
+            doTweenAlpha('iconP2Fade', 'iconP2', 0, 1, 'linear')
+        else
+            for i = 0, 7 do
+                noteTweenAlpha('oppFade'..i, i, 0.1, 1, 'linear')
+            end
+        end
+    end
+
+    if curSection == 28 then
+        setTextString('text', "Dodge when the red indicator shown flashes on your screen")
+        setProperty('RED.alpha', 1)
+        doTweenAlpha('redtween', 'RED', 0, 3, 'sine')
+    end
+
+    if curSection == 31 then
+        doTweenAlpha('txttween', 'text', 0, 1, 'sine')
+        if downscroll == false then
+            doTweenAlpha('healthBarFade', 'healthBar', 1, 1, 'linear')
+            doTweenAlpha('healthBarBGFade', 'healthBarBG', 1, 1, 'linear')
+            doTweenAlpha('iconP1Fade', 'iconP1', 1, 1, 'linear')
+            doTweenAlpha('iconP2Fade', 'iconP2', 1, 1, 'linear')
+        else
+            for i = 0, 7 do
+                noteTweenAlpha('oppFade'..i, i, 1, 1, 'linear')
+            end
+        end
+    end
+
     
     if curSection == 48 then
         bounceonbeat = true
@@ -293,7 +346,7 @@ function goodNoteHit(id, direction, noteType, isSustainNote)
 end
 
 function opponentNoteHit(id, direction, noteType, isSustainNote)
-    if getProperty('dad.curCharacter') == "mickeyUS1" or getProperty('dad.curCharacter') == "mickeyUS2"  then
+    if getProperty('dad.curCharacter') == "mickeyUS1" or getProperty('dad.curCharacter') == "mickeyUS2" or getProperty('dad.curCharacter') == "mickeySyringe" then
         if getProperty('health') > 0.25 then
             setProperty('health', getProperty('health') - 0.013)
         end
