@@ -1,4 +1,11 @@
 {
+	"storyName": "freeplay",
+	"difficulties": "",
+	"hideFreeplay": false,
+	"weekBackground": "stage",
+	"weekBefore": "tutorial",
+	"startUnlocked": true,
+	"hideStoryMode": true,
 	"songs": [
 		[
 			"dragged",
@@ -82,6 +89,15 @@
 			]
 		],
 		[
+			"faceless",
+			"face",
+			[
+				146,
+				113,
+				253
+			]
+		],
+		[
 			"dejection-old",
 			"face",
 			[
@@ -100,18 +116,11 @@
 			]
 		]
 	],
-	"hiddenUntilUnlocked": false,
-	"hideFreeplay": false,
-	"weekBackground": "stage",
-	"difficulties": "",
 	"weekCharacters": [
 		"bf",
 		"bf",
 		"gf"
 	],
-	"storyName": "freeplay",
-	"weekName": "Custom Week",
-	"hideStoryMode": true,
-	"weekBefore": "tutorial",
-	"startUnlocked": true
+	"hiddenUntilUnlocked": false,
+	"weekName": "Custom Week"
 }

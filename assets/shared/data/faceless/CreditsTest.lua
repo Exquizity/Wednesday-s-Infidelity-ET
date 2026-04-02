@@ -1,12 +1,13 @@
 local font = 'vcr.ttf'
-local colour = '1a2515'
+local colour = '07ff83'
 local activationstep = 1
 
 local songName = 'Faceless'
 local info = --Song Author, Sprite Maker, Charters, Extra Info
     '\nMusic Composed By: Z.G. Entertainment'..
     '\nSprites By: Wednesdays Infidelity'..
-    '\nCharted By: Exquizity'
+    '\nCharted By: Exquizity'..
+    '\nMotion Detecting Notes: kornelbut'
 
 
 function onCreatePost()
@@ -25,7 +26,7 @@ function onCreatePost()
 	setTextFont('desc', font)
 	setTextAlignment('desc', 'center')
 	setTextColor('desc', colour)
-	setTextBorder('desc', 0, '000000')
+	setTextBorder('desc', 0, 'FFFFFF')
 	setObjectCamera('desc', 'other')
 	setProperty('desc.antialiasing', false)
 	setProperty('desc.alpha', 0)
@@ -36,7 +37,7 @@ function onStepHit()
     if curStep == activationstep then
         doTweenAlpha('songtween', 'songname', 1, 1, 'linear')
         doTweenAlpha('desctween', 'desc', 1, 1, 'linear')
-        runTimer('finish', 5, 1)
+        runTimer('finish', 5.5, 1)
     end
 end
 

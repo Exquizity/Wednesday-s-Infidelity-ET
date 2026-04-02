@@ -18,6 +18,11 @@ function onCreate()
     setScrollFactor('void2', 0, 0)
     addLuaSprite('void2', true)
     setObjectCamera('void2', 'other')
+    makeLuaSprite('whitescreen', '', -200, -200)
+    makeGraphic('whitescreen', 1920, 1080, 'FFFFFF')
+    setScrollFactor('whitescreen', 0, 0)
+    addLuaSprite('whitescreen', true)
+    setProperty('whitescreen.alpha', 0)
     setProperty('void.alpha', 1)
     setProperty('void2.alpha', 0)
     setProperty('gf.visible', false)
@@ -157,6 +162,30 @@ function onStepHit()
     if curStep == 1423 then
         triggerEvent('HUD Bounce', '', '0.7')
         doTweenAlpha('flickertween', 'void2', 1, 0.16, 'sine')
+    end
+
+    if curStep == 1528 then
+        doTweenAlpha('flickertween', 'void2', 0, 1, 'sine')
+    end
+
+    if curStep == 1633 then
+        doTweenAlpha('WHITEEE', 'whitescreen', 1, 1, 'sine')
+    end
+
+    if curStep == 1648 then
+        doTweenAlpha('WHITEEE', 'whitescreen', 0, 0.01, 'sine')
+        setProperty('void.alpha', 1)
+    end
+
+    if curStep == 1665 then
+        setProperty('void.alpha', 0)
+    end
+
+    if curStep == 1855 then
+        setVar('ignoreCam', true)
+        setProperty('isCameraOnForcedPos', true)
+        doTweenX('camX', 'camFollow', 125, 1, 'sine')
+        doTweenY('camY', 'camFollow', 420, 1, 'circInOut')
     end
 
 end
