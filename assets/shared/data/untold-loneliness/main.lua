@@ -16,6 +16,11 @@ function onCreate()
     setObjectCamera('void2', 'other') 
     setProperty('void.alpha', 0.9)
     setProperty('void2.alpha', 0)
+    makeLuaSprite('whitescreen', '', -200, -200)
+    makeGraphic('whitescreen', 4000, 4000, 'FFFFFF')
+    setProperty('whitescreen.alpha', 0)
+    setScrollFactor('whitescreen', 0, 0)
+    addLuaSprite('whitescreen', false)
     setProperty('gf.visible', false)
     setProperty('scoreTxt.alpha', 0)
     setProperty('showComboNum', false)
@@ -53,6 +58,17 @@ function onSectionHit()
     setProperty('dad.alpha', 1)
     setProperty('boyfriend.alpha', 1)
     setProperty('void.alpha', 0 )
+    end
+    if curSection == 87 then
+    for i = 0, 7 do
+        setPropertyFromGroup('strumLineNotes', i, 'alpha', 0)
+    end   
+        setProperty('void.alpha', 1)
+        setProperty('healthBar.alpha', 0)
+        setProperty('healthBarBG.alpha', 0)
+        setProperty('iconP1.alpha', 0)
+        setProperty('iconP2.alpha', 0)
+        setProperty('scoreTxt.alpha', 0)
     end
 end
 
@@ -117,5 +133,27 @@ end
     setProperty('scoreTxt.alpha', 1)
     setProperty('void.alpha', 0)
     setTextString('text', '')
+end
+if curStep == 1391 then
+    setProperty('void.alpha', 0)
+end
+if curStep == 1392 then
+    setProperty('boyfriend.color', getColorFromHex('000000'))
+    setProperty('dad.color', getColorFromHex('000000'))
+    setProperty('whitescreen.alpha', 1)
+end
+if curStep == 1392 then
+        doTweenAlpha('texttween', 'text', 1, 0.5, 'sine')
+    _t = "All of us will all"
+    _fa = 0      
+    _fd = 1   
+    for i=1,#_t do runTimer('tw'..i, i*0.07, 1) end
+    runTimer('twfade', #_t*0.09 + 111, 1)
+end
+if curStep == 1416 then
+    setTextString('text', 'DIE')
+    setProperty('text.color', getColorFromHex('FF0000'))
+        setProperty('whitescreen.color', getColorFromHex('770000'))
+    doTweenColor('ws', 'whitescreen', getColorFromHex('FFFFFF'), 1.2, 'linear')
 end
 end
