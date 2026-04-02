@@ -143,7 +143,7 @@ if curStep == 1392 then
     setProperty('whitescreen.alpha', 1)
 end
 if curStep == 1392 then
-        doTweenAlpha('texttween', 'text', 1, 0.5, 'sine')
+    doTweenAlpha('texttween', 'text', 1, 0.5, 'sine')
     _t = "All of us will all"
     _fa = 0      
     _fd = 1   
@@ -151,9 +151,54 @@ if curStep == 1392 then
     runTimer('twfade', #_t*0.09 + 111, 1)
 end
 if curStep == 1416 then
-    setTextString('text', 'DIE')
+    setTextString('text', 'DIE.')
     setProperty('text.color', getColorFromHex('FF0000'))
         setProperty('whitescreen.color', getColorFromHex('770000'))
     doTweenColor('ws', 'whitescreen', getColorFromHex('FFFFFF'), 1.2, 'linear')
+end
+if curStep == 1424 then
+        setProperty('text.color', getColorFromHex('FFFFFF'))
+    _t = "None of us is worth a try"
+    _fa = 0      
+    _fd = 1   
+    for i=1,#_t do runTimer('tw'..i, i*0.064, 1) end
+    runTimer('twfade', #_t*0.1 + 111, 1)
+end
+if curStep == 1446 then
+    setProperty('whitescreen.color', getColorFromHex('770000'))
+    doTweenColor('ws', 'whitescreen', getColorFromHex('FFFFFF'), 1.2, 'linear')
+end
+if curStep == 1456 then
+    _t = "Guiding me where the life does end"
+    _fa = 0      
+    _fd = 1   
+    for i=1,#_t do runTimer('tw'..i, i*0.053, 1) end
+    runTimer('twfade', #_t*0.09 + 111, 1)
+end
+if curStep == 1486 then
+        setProperty('text.color', getColorFromHex('FF0000'))
+    _t = "THE LOOP OF SUFFERING DOES NEVER END."
+    _fa = 0      
+    _fd = 1   
+    for i=1,#_t do runTimer('tw'..i, i*0.05, 1) end
+    runTimer('twfade', #_t*0.09 + 0.5, 4)
+end
+if curStep == 1495 then
+    setProperty('whitescreen.color', getColorFromHex('770000'))
+    doTweenColor('ws', 'whitescreen', getColorFromHex('FFFFFF'), 1.2, 'linear')
+end
+if curStep == 1506 then
+for i = 0, 7 do
+    doTweenAlpha('strum'..i, 'strumLineNotes['..i..']', 1, 1, 'linear')
+end
+    doTweenAlpha('text', 'text', 0, 1, 'linear')
+    doTweenAlpha('healthBar', 'healthBar', 1, 1, 'linear')
+    doTweenAlpha('healthBarBG', 'healthBarBG', 1, 1, 'linear')
+    doTweenAlpha('iconP1', 'iconP1', 1, 1, 'linear')
+    doTweenAlpha('iconP2', 'iconP2', 1, 1, 'linear')
+    doTweenAlpha('scoreTxt', 'scoreTxt', 1, 1, 'linear')
+end
+if curStep == 1520 then
+    doTweenColor('ws', 'whitescreen', '770000', 7, 'linear')
 end
 end
