@@ -70,6 +70,23 @@ function onSectionHit()
         setProperty('iconP2.alpha', 0)
         setProperty('scoreTxt.alpha', 0)
     end
+    if curSection == 103 then
+        setProperty('dad.color', getColorFromHex('000000'))
+    end
+    if curSection == 104 then
+        setProperty('dad.animation.curAnim.curFrame', 60)
+        for i = 0, 3 do
+            noteTweenAlpha('oppFade'..i, i, 1, 1.2, 'linear')
+        end
+    end
+    if curSection == 105 then
+        setProperty('dad.color', getColorFromHex('000000'))
+    end
+    if curSection == 107 then
+        setProperty('whitescreen.alpha', 0)
+        setProperty('boyfriend.color', getColorFromHex('FFFFFF'))
+        setProperty('dad.color', getColorFromHex('FFFFFF'))
+    end
 end
 
 -- (0 = invisible, , 1 = visible)
@@ -188,17 +205,22 @@ if curStep == 1495 then
     doTweenColor('ws', 'whitescreen', getColorFromHex('FFFFFF'), 1.2, 'linear')
 end
 if curStep == 1506 then
-for i = 0, 7 do
-    doTweenAlpha('strum'..i, 'strumLineNotes['..i..']', 1, 1, 'linear')
+for i = 4, 7 do
+    noteTweenAlpha('plrFade'..i, i, 1, 1, 'linear')
 end
-    doTweenAlpha('text', 'text', 0, 1, 'linear')
-    doTweenAlpha('healthBar', 'healthBar', 1, 1, 'linear')
-    doTweenAlpha('healthBarBG', 'healthBarBG', 1, 1, 'linear')
-    doTweenAlpha('iconP1', 'iconP1', 1, 1, 'linear')
-    doTweenAlpha('iconP2', 'iconP2', 1, 1, 'linear')
-    doTweenAlpha('scoreTxt', 'scoreTxt', 1, 1, 'linear')
 end
 if curStep == 1520 then
     doTweenColor('ws', 'whitescreen', '770000', 7, 'linear')
+end
+if curStep == 1639 then
+    setProperty('text.alpha', 1)
+    _t = "FUCK"
+    _fa = 0      
+    _fd = 1   
+    for i=1,#_t do runTimer('tw'..i, i*0.07, 1) end
+    runTimer('twfade', #_t*0.09 + 0.01, 1)
+end
+if curStep == 1648 then
+    setProperty('dad.color', getColorFromHex('000000'))
 end
 end
