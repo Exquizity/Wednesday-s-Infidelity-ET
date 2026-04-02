@@ -1,1 +1,2 @@
 Has the screen flash white momentarily
+Set value 1 as B to make it flash the screen black
