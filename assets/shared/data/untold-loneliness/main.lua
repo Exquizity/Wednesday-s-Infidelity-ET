@@ -56,11 +56,16 @@ function onSectionHit()
     end
 end
 
+-- (0 = invisible, , 1 = visible)
+-- (0 = invisible, , 1 = visible)
+-- (0 = invisible, , 1 = visible)
+
+
 function onStepHit()
 if curStep == 498 then
     doTweenAlpha('texttween', 'text', 1, 0.5, 'sine')
     _t = 'Alright, alright'
-    _fa = 0      -- (0 = invisible, , 1 = visible)
+    _fa = 0      
     _fd = 0.1   
     for i=1,#_t do runTimer('tw'..i, i*0.08, 1) end
     runTimer('twfade', #_t*0.09 + 0.2, 1)
@@ -78,6 +83,7 @@ if curStep == 832 then
 for i = 0, 7 do
     setPropertyFromGroup('strumLineNotes', i, 'alpha', 0)
 end
+    setProperty('text.color', getColorFromHex('FFFFFF'))
     setProperty('text.alpha', 1)
     setProperty('healthBar.alpha', 0)
     setProperty('healthBarBG.alpha', 0)
@@ -90,16 +96,13 @@ end
 if curStep == 835 then
     setTextString('text', 'UNTOLD')
 end
-if curStep == 840 then
+if curStep == 839 then
     setTextString('text', 'UNTOLD LONE')
 end
-if curStep == 843 then
+if curStep == 842 then
     setTextString('text', 'UNTOLD LONELI')
 end
 if curStep == 844 then
-    setTextString('text', 'UNTOLD LONELI')
-end
-if curStep == 845 then
     setTextString('text', 'UNTOLD LONELINESS')
 end
 if curStep == 848 then
