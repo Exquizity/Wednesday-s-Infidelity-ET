@@ -6,7 +6,7 @@ local itera = 0
 
 function onCreatePost()
     makeAnimatedLuaSprite('syringemickey', 'characters/Suicide', -845, -50)
-    addAnimationByPrefix('syringemickey', 'dodge', 'Hit Mouse', 24, false)
+    addAnimationByPrefix('syringemickey', 'dodge', 'Hit Mouse', 22, false)
     setObjectOrder('syringemickey', getObjectOrder('boyfriendGroup') + 1)
     scaleObject('syringemickey', 1.27, 1.27, true)
     addOffset('syringemickey','dodge', 0, 0)
@@ -54,7 +54,7 @@ function onStepHit()
         PassedSteps = PassedSteps + 1
     end
 
-    if running and PassedSteps >= 8 then
+    if running and PassedSteps >= 9 then
         dodged = pressed
         setProperty('boyfriend.specialAnim', true)
 
@@ -74,6 +74,7 @@ function onStepHit()
 
         running = false
         PassedSteps = 0
+        itera = itera + 1
     end
 end
 
