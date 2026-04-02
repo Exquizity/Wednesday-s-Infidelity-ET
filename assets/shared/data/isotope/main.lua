@@ -34,6 +34,7 @@ function onCreate()
     setProperty('timeBarBG.visible', true)
     setProperty('timeTxt.visible', true)
     math.randomseed(os.time())
+    doTweenZoom('camGameTween', 'camGame', 0.75, 0.01)
 end
 
 function onCreatePost()
