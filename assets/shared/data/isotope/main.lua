@@ -52,6 +52,7 @@ function onTimerCompleted(tag, loops, loopsLeft)
         pcall(function() doTweenY('shake_hud_y_in', 'camHUD', baseHudPositionY, 0.1 / 2, 'quadInOut') end)
         pcall(function() doTweenX('shake_game_x_in', 'camGame', baseGamePositionX, 0.1 / 2, 'quadInOut') end)
         pcall(function() doTweenY('shake_game_y_in', 'camGame', baseGamePositionY, 0.1 / 2, 'quadInOut') end)
+    end
 end
 
 local function attemptCameraShake(camera, intensity, duration)
