@@ -3,8 +3,16 @@ function onCreate()
     makeLuaSprite('Vignette', 'suicideStreet/vignette', 0, 0)
     scaleLuaSprite('Vignette', 1, 1)
     setScrollFactor('Vignette', 1, 1)
-    setObjectCamera('Vignette', 'other');
-    addLuaSprite('Vignette', false)
+    setObjectCamera('Vignette', 'other')
+    addLuaSprite('Vignette', true)
+
+    makeLuaSprite('VignetteExpanded', 'suicideStreet/vignetteExpanded', 0, 0)
+    scaleLuaSprite('VignetteExpanded', 1, 1)
+    setScrollFactor('VignetteExpanded', 1, 1)
+    setObjectCamera('VignetteExpanded', 'other')
+    addLuaSprite('VignetteExpanded', true)
+    setProperty('VignetteExpanded.alpha', 0)
+
     makeLuaSprite('void', '', -300, -300)
     makeGraphic('void', 2200, 2200, '000000')
     setScrollFactor('void', 0, 0)
@@ -87,6 +95,28 @@ function onSectionHit()
         setProperty('boyfriend.color', getColorFromHex('FFFFFF'))
         setProperty('dad.color', getColorFromHex('FFFFFF'))
     end
+    if curSection == 154 then
+        setProperty('void.alpha', 1)
+        setProperty('healthBar.alpha', 0)
+        setProperty('healthBarBG.alpha', 0)
+        setProperty('iconP1.alpha', 0)
+        setProperty('iconP2.alpha', 0)
+        setProperty('scoreTxt.alpha', 0)
+        doTweenAlpha('vignettetw', 'Vignette', 0, 1.2, 'linear')
+        doTweenAlpha('vignetteexpandtw', 'VignetteExpanded', 1, 1.2, 'linear')
+    end
+    if curSection == 155 then
+        setProperty('void.alpha', 0)
+    end
+    if curSection == 162 then
+        setProperty('void.alpha', 1)
+        doTweenAlpha('vignettetw', 'Vignette', 1, 1.2, 'linear')
+        doTweenAlpha('vignetteexpandtw', 'VignetteExpanded', 0, 1.2, 'linear')
+    end
+    if curSection == 163 then
+        setProperty('void.alpha', 0)
+    end
+    
 end
 
 -- (0 = invisible, , 1 = visible)
@@ -222,5 +252,28 @@ if curStep == 1639 then
 end
 if curStep == 1648 then
     setProperty('dad.color', getColorFromHex('000000'))
+end
+if curStep >= 1904 and curStep <= 1920 then
+    if curStep % 3 == 0 then
+        setProperty('void2.alpha', 1)
+    else
+        setProperty('void2.alpha', 0)
+    end
+elseif curStep == 1921 then
+    setProperty('void2.alpha', 0)
+end
+if curStep == 1910 then
+    setProperty('dad.danceEveryNumBeats', 9999)
+    setProperty('dad.animation.curAnim.paused', true)
+end
+if curStep == 2432 then
+for i = 0, 7 do
+    setPropertyFromGroup('strumLineNotes', i, 'alpha', 0)
+end
+if curStep == 2437 then
+for i = 0, 7 do
+    noteTweenAlpha('notes'..i, i, 1, 0.6, 'linear')
+end
+end
 end
 end

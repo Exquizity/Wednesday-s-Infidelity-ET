@@ -1,0 +1,16 @@
+states/PlayState.hx (line 3347)
+states/PlayState.hx (line 3332)
+backend/MusicBeatState.hx (line 179)
+states/PlayState.hx (line 3303)
+backend/MusicBeatState.hx (line 66)
+states/PlayState.hx (line 1790)
+flixel/FlxState.hx (line 239)
+flixel/FlxGame.hx (line 749)
+flixel/FlxGame.hx (line 679)
+flixel/FlxGame.hx (line 552)
+openfl/events/EventDispatcher.hx (line 426)
+openfl/display/DisplayObject.hx (line 1398)
+
+Uncaught Error: Mod by 0 Error.
+
+> Crash Handler written by: sqirra-rng
