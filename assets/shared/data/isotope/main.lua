@@ -1,9 +1,15 @@
 function onCreate()
+    setProperty('isCameraOnForcedPos', true)
     makeLuaSprite('Vignette', 'suicideStreet/vignette', 0, 0)
     scaleLuaSprite('Vignette', 1, 1)
     setScrollFactor('Vignette', 1, 1)
     setObjectCamera('Vignette', 'other');
     addLuaSprite('Vignette', false)
+    makeLuaSprite('normal', 'suicideStreet/street', -1100, -200)
+	scaleLuaSprite('normal', 1, 1)
+	setScrollFactor('normal', 1, 1)
+	addLuaSprite('normal', false)
+    setProperty('normal.alpha', 0)
     makeLuaSprite('BGdark', 'suicideStreet/streetDark', -1100, -200)
 	scaleLuaSprite('BGdark', 1, 1)
 	setScrollFactor('BGdark', 1, 1)
@@ -25,6 +31,15 @@ function onCreate()
     setProperty('whitescreen.alpha', 0)
     setProperty('void.alpha', 0)
     setProperty('void2.alpha', 0)
+    makeLuaSprite('lightthing', 'suicideStreet/light', -800, -200)
+	scaleLuaSprite('lightthing', 0.85, 1)
+	setScrollFactor('lightthing', 0.8, 1)
+    makeLuaText('text', '', 1250, 0, 650)
+	setTextAlignment('text', 'Center')
+	addLuaText('text')
+	setTextSize('text', 28)
+	addLuaSprite('lightthing', false)
+    setProperty('lightthing.alpha', 0)
     setProperty('gf.visible', false)
     setProperty('scoreTxt.alpha', 0)
     setProperty('showComboNum', true)
@@ -34,7 +49,50 @@ function onCreate()
     setProperty('timeBarBG.visible', true)
     setProperty('timeTxt.visible', true)
     math.randomseed(os.time())
-    doTweenZoom('camGameTween', 'camGame', 0.75, 0.01)
+    doTweenZoom('camGameTween', 'camGame', 0.7, 0.01)
+    setProperty('camHUD.alpha', 0)
+    setVar('ignoreCam', true)
+    doTweenX('camX', 'camFollow', 200, 0.01, 'circInOut')
+    doTweenY('camY', 'camFollow', 400, 0.01, 'circInOut')
+    doTweenZoom('camGameTween', 'camGame', 0.75, 10)
+end
+
+function onStepHit()
+    if curStep == 129 then
+        doTweenAlpha('heavenstween', 'lightthing', 0.5, 3)
+    end
+
+    if curStep == 227 then
+        doTweenZoom('camGameTween', 'camGame', 0.9, 2, 'circInOut')
+    end
+
+    if curStep == 249 then
+        setProperty('void.alpha', 1)
+        setProperty('health', getProperty('health') + 1)
+    end
+
+    if curStep == 257 then
+        doTweenZoom('camGameTween', 'camGame', 0.75, 0.25, 'circOut')
+        setProperty('BG.alpha', 0)
+        setProperty('normal.alpha', 1)
+        setProperty('void.alpha', 0)
+    end
+
+    if curStep == 321 then
+        doTweenAlpha('hud', 'camHUD', 1, 1.5)
+        setVar('ignoreCam', false)
+        setProperty('isCameraOnForcedPos', false)
+    end
+
+    if curStep == 347 then
+        doTweenAlpha('texttween', 'text', 1, 0.25, 'sine')
+        setTextString('text', 'Do I look fine to you?')
+    end
+
+    if curStep == 365 then
+        doTweenAlpha('texttween', 'text', 0, 0.5, 'sine')
+    end
+
 end
 
 function onCreatePost()
@@ -102,10 +160,6 @@ local function shakeCameras(pixelOffsetX, pixelOffsetY, duration)
     if successHudShake and successGameShake then return end
 
     performPixelShake(pixelOffsetX, pixelOffsetY, duration)
-end
-
-function onStepHit()
-
 end
 
 function goodNoteHit(id, direction, noteType, isSustainNote)
