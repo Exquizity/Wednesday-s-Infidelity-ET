@@ -44,6 +44,7 @@ function onCreatePost()
         baseGamePositionY = getProperty('camGame.y') or 0
         savedBasePositions = true
     end
+end
 
 
 function onTimerCompleted(tag, loops, loopsLeft)
