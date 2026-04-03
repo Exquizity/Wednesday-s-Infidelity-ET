@@ -1,14 +1,18 @@
 #pragma header
 
 uniform float BLUR_INTENSITY;
+uniform float BLUR_SPEED;
+uniform float POSITION_EFFECT;
 uniform float SAMPLE_COUNT;
 uniform float SAMPLE_OFFSET;
+
+uniform float iTime;
 
 void main()
 {
     vec2 uv = openfl_TextureCoordv;
-
-    float lod = max(0.001, BLUR_INTENSITY);
+    float positionFactor = abs(uv.x - POSITION_EFFECT);
+    float lod = max(0.001, BLUR_INTENSITY * positionFactor);
 
     float samples = clamp(SAMPLE_COUNT, 1.0, 20.0);
     float offsetScale = clamp(SAMPLE_OFFSET, 0.001, 0.1);
