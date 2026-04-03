@@ -55,27 +55,50 @@ function onCreate()
     doTweenX('camX', 'camFollow', 200, 0.01, 'circInOut')
     doTweenY('camY', 'camFollow', 400, 0.01, 'circInOut')
     doTweenZoom('camGameTween', 'camGame', 0.75, 10)
+    initLuaShader('textureBlur')
 end
+
+
+-- DONT USE THIS FUNCTION, ITS BUGGY AF
+local function CenterCam(tweentime, finish) -- put anything in finish to finish
+    if finish == '' or finish == nil then
+        setVar('ignoreCam', true)
+        setProperty('isCameraOnForcedPos', true)
+        doTweenX('camX', 'camFollow', 200, tweentime, 'circInOut')
+        doTweenY('camY', 'camFollow', 400, tweentime, 'circInOut')
+    else
+        setVar('ignoreCam', false)
+        setProperty('isCameraOnForcedPos', false)
+    end
+end
+-- DONT USE THIS FUNCTION, ITS BUGGY AF
 
 function onStepHit()
     if curStep == 129 then
-        doTweenAlpha('heavenstween', 'lightthing', 0.5, 3)
+        doTweenAlpha('heavenstween', 'lightthing', 0.5, 9)
+        doTweenZoom('camGameTween', 'camGame', 0.68, 3, 'sineOut')
     end
 
     if curStep == 227 then
-        doTweenZoom('camGameTween', 'camGame', 0.9, 2, 'circInOut')
+        doTweenZoom('camGameTween', 'camGame', 0.9, 3.5, 'circInOut')
     end
 
     if curStep == 249 then
         setProperty('void.alpha', 1)
-        setProperty('health', getProperty('health') + 1)
+        setProperty('health', 1)
+        doTweenAlpha('heavenstween', 'lightthing', 0, 0.01)
     end
 
     if curStep == 257 then
-        doTweenZoom('camGameTween', 'camGame', 0.75, 0.25, 'circOut')
+        doTweenZoom('camGameTween', 'camGame', 0.7, 1.25, 'circOut')
         setProperty('BG.alpha', 0)
         setProperty('normal.alpha', 1)
         setProperty('void.alpha', 0)
+        local options = {BLUR_INTENSITY = 0.25, POSITION_EFFECT = 0.5, SAMPLE_COUNT = 10, SAMPLE_OFFSET = 0.0005}
+        setSpriteShader('dad', 'textureBlur')
+        for param, val in pairs(options) do
+            setShaderFloat('dad', param, val)
+        end
     end
 
     if curStep == 321 then
@@ -91,6 +114,39 @@ function onStepHit()
 
     if curStep == 365 then
         doTweenAlpha('texttween', 'text', 0, 0.5, 'sine')
+    end
+
+    if curStep == 369 then
+        local options = {BLUR_INTENSITY = 0.25, POSITION_EFFECT = 0.5, SAMPLE_COUNT = 10, SAMPLE_OFFSET = 0.0005}
+        setSpriteShader('dad', 'textureBlur')
+        for param, val in pairs(options) do
+            setShaderFloat('dad', param, val)
+        end
+    end
+
+    if curStep == 385 then
+        local options = {BLUR_INTENSITY = 0.25, POSITION_EFFECT = 0.5, SAMPLE_COUNT = 10, SAMPLE_OFFSET = 0.0005}
+        setSpriteShader('dad', 'textureBlur')
+        for param, val in pairs(options) do
+            setShaderFloat('dad', param, val)
+        end
+    end
+
+    if curStep == 482 then
+        CenterCam(0.25, '')
+    end
+    
+    if curStep == 514 then
+        CenterCam(1, 'tt')
+    end
+
+    if curStep == 641 then
+        CenterCam(1)
+    end
+
+    if curStep == 703 then
+        doTweenX('camX', 'camFollow', 30, 0.3, 'sine')
+        CenterCam(1, 'end')
     end
 
 end
