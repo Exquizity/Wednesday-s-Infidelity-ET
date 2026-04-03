@@ -126,7 +126,7 @@ function onSectionHit()
     setProperty('boyfriend.alpha', 1)
     setProperty('void.alpha', 0 )
     for i = 0, 7 do
-        setPropertyFromGroup('strumLineNotes', i, 'alpha', 0)
+        setPropertyFromGroup('strumLineNotes', i, 'alpha', 1)
     end
     end
     if curSection == 87 then
