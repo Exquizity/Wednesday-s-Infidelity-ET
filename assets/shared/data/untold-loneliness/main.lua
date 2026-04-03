@@ -1,4 +1,9 @@
 local _t=''
+local bounceonbeat = false
+local flValue1 = 0.065
+local flValue2 = 0.08
+local maxzoom = 0.8
+
 function onCreate()
     makeLuaSprite('Vignette', 'suicideStreet/vignette', 0, 0)
     scaleLuaSprite('Vignette', 1, 1)
@@ -56,6 +61,53 @@ function onTimerCompleted(tag,l,ll)
     end
 end
 
+local function attemptCameraShake(camera, intensity, duration)
+    if type(cameraShake) == "function" then
+        local success, _ = pcall(cameraShake, camera, intensity, duration)
+        return success
+    end
+    return false
+end
+
+local function performPixelShake(offsetX, offsetY, duration)
+    if type(cancelTween) == "function" then
+        pcall(cancelTween, 'shake_hud_x_out')
+        pcall(cancelTween, 'shake_hud_y_out')
+        pcall(cancelTween, 'shake_game_x_out')
+        pcall(cancelTween, 'shake_game_y_out')
+        pcall(cancelTween, 'shake_hud_x_in')
+        pcall(cancelTween, 'shake_hud_y_in')
+        pcall(cancelTween, 'shake_game_x_in')
+        pcall(cancelTween, 'shake_game_y_in')
+    end
+
+    local randomX = (math.random() * 2 - 1) * offsetX
+    local randomY = (math.random() * 2 - 1) * offsetY
+
+    local halfDuration = duration / 2
+
+    pcall(function() doTweenX('shake_hud_x_out', 'camHUD', baseHudPositionX + randomX, halfDuration, 'quadInOut') end)
+    pcall(function() doTweenY('shake_hud_y_out', 'camHUD', baseHudPositionY + randomY, halfDuration, 'quadInOut') end)
+    pcall(function() doTweenX('shake_game_x_out', 'camGame', baseGamePositionX + randomX, halfDuration, 'quadInOut') end)
+    pcall(function() doTweenY('shake_game_y_out', 'camGame', baseGamePositionY + randomY, halfDuration, 'quadInOut') end)
+
+    if type(runTimer) == "function" then
+        pcall(runTimer, 'shake_return', halfDuration)
+    end
+end
+
+local function shakeCameras(pixelOffsetX, pixelOffsetY, duration)
+    pixelOffsetX = pixelOffsetX or 0.7
+    pixelOffsetY = pixelOffsetY or 0.7
+    duration = duration or 0.1
+
+    local successHudShake = attemptCameraShake('camHUD', math.max(pixelOffsetX, pixelOffsetY) / 100, duration)
+    local successGameShake = attemptCameraShake('camGame', math.max(pixelOffsetX, pixelOffsetY) / 100, duration)
+    if successHudShake and successGameShake then return end
+
+    performPixelShake(pixelOffsetX, pixelOffsetY, duration)
+end
+
 function onSectionHit()
     if curSection == 18 then
     setProperty('dad.alpha', 0.9)
@@ -95,28 +147,42 @@ function onSectionHit()
         setProperty('boyfriend.color', getColorFromHex('FFFFFF'))
         setProperty('dad.color', getColorFromHex('FFFFFF'))
     end
+    if curSection == 153 then
+    for i = 0, 7 do
+        noteTweenAlpha('notes'..i, i, 1.2, 0, 'linear')
+    end
+    end
     if curSection == 154 then
         setProperty('void.alpha', 1)
         setProperty('healthBar.alpha', 0)
         setProperty('healthBarBG.alpha', 0)
         setProperty('iconP1.alpha', 0)
         setProperty('iconP2.alpha', 0)
-        setProperty('scoreTxt.alpha', 0)
         doTweenAlpha('vignettetw', 'Vignette', 0, 1.2, 'linear')
         doTweenAlpha('vignetteexpandtw', 'VignetteExpanded', 1, 1.2, 'linear')
+        setProperty('dark.alpha', 1)
     end
     if curSection == 155 then
         setProperty('void.alpha', 0)
+    for i = 0, 7 do
+        setPropertyFromGroup('strumLineNotes', i, 'alpha', 1)
+    end   
     end
     if curSection == 162 then
         setProperty('void.alpha', 1)
         doTweenAlpha('vignettetw', 'Vignette', 1, 1.2, 'linear')
         doTweenAlpha('vignetteexpandtw', 'VignetteExpanded', 0, 1.2, 'linear')
+    for i = 0, 7 do
+        setPropertyFromGroup('strumLineNotes', i, 'alpha', 0)
+    end   
     end
     if curSection == 163 then
         setProperty('void.alpha', 0)
+    for i = 0, 7 do
+        setPropertyFromGroup('strumLineNotes', i, 'alpha', 1)
+    end   
     end
-    
+
 end
 
 -- (0 = invisible, , 1 = visible)
@@ -267,13 +333,109 @@ if curStep == 1910 then
     setProperty('dad.animation.curAnim.paused', true)
 end
 if curStep == 2432 then
-for i = 0, 7 do
-    setPropertyFromGroup('strumLineNotes', i, 'alpha', 0)
+    for i = 0, 7 do
+        setPropertyFromGroup('strumLineNotes', i, 'alpha', 0)
+    end
 end
 if curStep == 2437 then
+    for i = 0, 7 do
+        noteTweenAlpha('notes'..i, i, 1, 0.6, 'linear')
+    end
+end
+if curStep == 3104 then
+    setProperty('dark.alpha', 0)
+    setProperty('void.alpha', 1)  
+    setProperty('text.color', getColorFromHex('FFFFFF'))
+    doTweenAlpha('healthBarFade', 'healthBar', 0, 3, 'linear')
+    doTweenAlpha('healthBarBGFade', 'healthBarBG', 0, 3, 'linear')
+    doTweenAlpha('iconP1Fade', 'iconP1', 0, 3, 'linear')
+    doTweenAlpha('iconP2Fade', 'iconP2', 0, 3, 'linear')
+    doTweenAlpha('scoreTxtFade', 'scoreTxt', 0, 3, 'linear')
 for i = 0, 7 do
-    noteTweenAlpha('notes'..i, i, 1, 0.6, 'linear')
+    noteTweenAlpha('notes'..i, i, 0, 3, 'linear')
 end
 end
+if curStep == 3124 then
+doTweenAlpha('texttween', 'text', 1, 0.5, 'sine')
+    _t = "And?"
+    _fa = 0      
+    _fd = 1   
+    for i=1,#_t do runTimer('tw'..i, i*0.07, 1) end
+runTimer('twfade', #_t*0.09 + 111, 1)
 end
+if curStep == 3144 then
+    _t = "Was it worth it?"
+    _fa = 0      
+    _fd = 1   
+    for i=1,#_t do runTimer('tw'..i, i*0.05, 1) end
+runTimer('twfade', #_t*0.09 + 111, 1)
+end
+if curStep == 3169 then
+    _t = "Did you expect any good ending you pathetic boy?"
+    _fa = 0      
+    _fd = 1   
+    for i=1,#_t do runTimer('tw'..i, i*0.055, 1) end
+runTimer('twfade', #_t*0.09 + 111, 1)
+end
+if curStep == 3250 then
+    _t = "There is no place for me in this world"
+    _fa = 0      
+    _fd = 0.8 
+    for i=1,#_t do runTimer('tw'..i, i*0.053, 1) end
+    runTimer('twfade', #_t*0.09 + 0.2, 1)
+end
+if curStep == 3326 then
+    setTextString('text', '')
+    setProperty('text.color', getColorFromHex('FF6666'))
+    setProperty('text.alpha', 1)
+    _t = "Let"
+    _fa = 0      
+    _fd = 1   
+    for i=1,#_t do runTimer('tw'..i, i*0.2, 1) end
+    runTimer('twfade', #_t*0.09 + 111, 1)
+end
+if curStep == 3342 then
+    setTextString('text', '')
+    setProperty('text.color', getColorFromHex('FF2222'))
+    _t = "Me"
+    _fa = 0      
+    _fd = 1   
+    for i=1,#_t do runTimer('tw'..i, i*0.16, 1) end
+    runTimer('twfade', #_t*0.09 + 111, 1)
+end
+if curStep == 3358 then
+    setTextString('text', '')
+    setProperty('text.color', getColorFromHex('FF0000'))
+    _t = "Leave."
+    _fa = 0      
+    _fd = 2   
+    for i=1,#_t do runTimer('tw'..i, i*0.08, 1) end
+    runTimer('twfade', #_t*0.09 + 0.1, 2)
+end
+end -- closes onStepHit
+
+function onBeatHit()
+    if bounceonbeat == true then
+        local gameZoom = getProperty('camGame.zoom')
+        local hudZoom = getProperty('camHUD.zoom')
+        if gameZoom < maxzoom then
+            gameZoom = gameZoom + flValue1
+            if gameZoom > maxzoom then gameZoom = maxzoom end
+            setProperty('camGame.zoom', gameZoom)
+        end
+        if hudZoom ~= nil then
+            setProperty('camHUD.zoom', hudZoom + flValue2)
+        end
+    end
+end
+
+function opponentNoteHit(id, direction, noteType, isSustainNote)
+    local currentDadCharacter = getProperty('dad.curCharacter') or getProperty('dad.character') or ''
+    if currentDadCharacter == 'OswaldUL2' then
+        shakeCameras(0.5, 0.5, 0.1)
+    end
+else
+    if currentDadCharacter == 'oswaldUL' then
+        shakeCameras(0.2, 0.2, 0.1)
+    end
 end
