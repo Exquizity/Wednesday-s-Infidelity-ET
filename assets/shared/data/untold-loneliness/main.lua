@@ -3,7 +3,7 @@ local bounceonbeat = false
 local flValue1 = 0.065
 local flValue2 = 0.08
 local maxzoom = 0.8
-
+local defpos = {}
 function onCreate()
     makeLuaSprite('Vignette', 'suicideStreet/vignette', 0, 0)
     scaleLuaSprite('Vignette', 1, 1)
@@ -29,7 +29,7 @@ function onCreate()
     setObjectCamera('void2', 'other') 
     setProperty('void.alpha', 0.9)
     setProperty('void2.alpha', 0)
-    makeLuaSprite('whitescreen', '', -200, -200)
+    makeLuaSprite('whitescreen', '', -250, -250)
     makeGraphic('whitescreen', 4000, 4000, 'FFFFFF')
     setProperty('whitescreen.alpha', 0)
     setScrollFactor('whitescreen', 0, 0)
@@ -51,6 +51,7 @@ function onCreate()
 	setTextSize('text', 40)
     setTextFont('vcr')
     setProperty('text.alpha', 0)
+
 end
 
 function onTimerCompleted(tag,l,ll)
@@ -61,6 +62,7 @@ function onTimerCompleted(tag,l,ll)
     end
 end
 
+
 local function attemptCameraShake(camera, intensity, duration)
     if type(cameraShake) == "function" then
         local success, _ = pcall(cameraShake, camera, intensity, duration)
@@ -68,6 +70,8 @@ local function attemptCameraShake(camera, intensity, duration)
     end
     return false
 end
+
+
 
 local function performPixelShake(offsetX, offsetY, duration)
     if type(cancelTween) == "function" then
@@ -113,11 +117,17 @@ function onSectionHit()
     setProperty('dad.alpha', 0.9)
     setProperty('boyfriend.alpha', 0.9)
     setProperty('void.alpha', 0.7 )
+    for i = 0, 7 do
+        setPropertyFromGroup('strumLineNotes', i, 'alpha', 0.85)
+    end
     end
     if curSection == 36 then
     setProperty('dad.alpha', 1)
     setProperty('boyfriend.alpha', 1)
     setProperty('void.alpha', 0 )
+    for i = 0, 7 do
+        setPropertyFromGroup('strumLineNotes', i, 'alpha', 0)
+    end
     end
     if curSection == 87 then
     for i = 0, 7 do
@@ -143,6 +153,12 @@ function onSectionHit()
         setProperty('dad.color', getColorFromHex('000000'))
     end
     if curSection == 107 then
+        bounceonbeat = true
+        setProperty('healthBar.alpha', 1)
+        setProperty('healthBarBG.alpha', 1)
+        setProperty('iconP1.alpha', 1)
+        setProperty('iconP2.alpha', 1)
+        setProperty('scoreTxt.alpha', 1)
         setProperty('whitescreen.alpha', 0)
         setProperty('boyfriend.color', getColorFromHex('FFFFFF'))
         setProperty('dad.color', getColorFromHex('FFFFFF'))
@@ -153,6 +169,7 @@ function onSectionHit()
     end
     end
     if curSection == 154 then
+        bounceonbeat = false
         setProperty('void.alpha', 1)
         setProperty('healthBar.alpha', 0)
         setProperty('healthBarBG.alpha', 0)
@@ -163,12 +180,24 @@ function onSectionHit()
         setProperty('dark.alpha', 1)
     end
     if curSection == 155 then
+        
         setProperty('void.alpha', 0)
     for i = 0, 7 do
         setPropertyFromGroup('strumLineNotes', i, 'alpha', 1)
     end   
     end
     if curSection == 162 then
+        for i = 0,7 do
+            local x = getPropertyFromGroup('strumLineNotes', i, 'x')
+            local y = getPropertyFromGroup('strumLineNotes', i, 'y')
+
+            table.insert(defpos, {x, y})
+        end
+        setProperty('healthBar.alpha', 1)
+        setProperty('healthBarBG.alpha', 1)
+        setProperty('iconP1.alpha', 1)
+        setProperty('iconP2.alpha', 1)
+        setProperty('scoreTxt.alpha', 1)
         setProperty('void.alpha', 1)
         doTweenAlpha('vignettetw', 'Vignette', 1, 1.2, 'linear')
         doTweenAlpha('vignetteexpandtw', 'VignetteExpanded', 0, 1.2, 'linear')
@@ -177,6 +206,7 @@ function onSectionHit()
     end   
     end
     if curSection == 163 then
+        bounceonbeat = true
         setProperty('void.alpha', 0)
     for i = 0, 7 do
         setPropertyFromGroup('strumLineNotes', i, 'alpha', 1)
@@ -235,6 +265,7 @@ if curStep == 844 then
     setTextString('text', 'UNTOLD LONELINESS')
 end
 if curStep == 848 then
+    bounceonbeat = true
     for i = 0, 7 do
     setPropertyFromGroup('strumLineNotes', i, 'alpha', 1)
 end
@@ -246,6 +277,9 @@ end
     setProperty('scoreTxt.alpha', 1)
     setProperty('void.alpha', 0)
     setTextString('text', '')
+end
+if curStep == 1120 then
+    bounceonbeat = false
 end
 if curStep == 1391 then
     setProperty('void.alpha', 0)
@@ -343,6 +377,7 @@ if curStep == 2437 then
     end
 end
 if curStep == 3104 then
+    bounceonbeat = false
     setProperty('dark.alpha', 0)
     setProperty('void.alpha', 1)  
     setProperty('text.color', getColorFromHex('FFFFFF'))
@@ -430,12 +465,41 @@ function onBeatHit()
 end
 
 function opponentNoteHit(id, direction, noteType, isSustainNote)
-    local currentDadCharacter = getProperty('dad.curCharacter') or getProperty('dad.character') or ''
-    if currentDadCharacter == 'OswaldUL2' then
+    if getProperty('dad.curCharacter') == 'oswaldDejection' then
+        if getProperty('health') > 0.25 then
+            setProperty('health', getProperty('health') - 0.013)
+        end
+    end
+
+    if getProperty('dad.curCharacter') == 'oswaldUL' then
+        if getProperty('health') > 0.3 then
+            setProperty('health', getProperty('health') - 0.015)
+        end
+        shakeCameras(0.12, 0.122, 0.1)
+    end
+
+    if getProperty('dad.curCharacter') == 'OswaldUL2' then
+        if getProperty('health') > 0.25 then
+            setProperty('health', getProperty('health') - 0.005)
+        end
         shakeCameras(0.5, 0.5, 0.1)
     end
-else
-    if currentDadCharacter == 'oswaldUL' then
-        shakeCameras(0.2, 0.2, 0.1)
+end
+
+
+function onUpdate(elapsed)
+    if curSection > 162 then
+        local songPos = getSongPosition()
+        local curbeat = (songPos / 1000) * (bpm / 60) / 4
+
+        if #defpos == 8 then
+            for i = 0, 7 do
+                local noteX = defpos[i + 1][1] + 20 * math.sin((curbeat + i * 0.25) * math.pi)
+                local noteY = defpos[i + 1][2] + 30 * math.cos((curbeat + i * 0.25) * math.pi)
+
+                setPropertyFromGroup('strumLineNotes', i, 'x', noteX)
+                setPropertyFromGroup('strumLineNotes', i, 'y', noteY)
+            end
+        end
     end
 end
