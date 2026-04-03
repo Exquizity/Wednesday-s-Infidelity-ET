@@ -1,3 +1,4 @@
+local bounceonbeat = false
 function onCreate()
     setProperty('isCameraOnForcedPos', true)
     makeLuaSprite('Vignette', 'suicideStreet/vignette', 0, 0)
@@ -29,6 +30,11 @@ function onCreate()
     setScrollFactor('whitescreen', 0, 0)
     addLuaSprite('whitescreen', true)
     setProperty('whitescreen.alpha', 0)
+    makeLuaSprite('REDDD', '', -200, -200)
+    makeGraphic('REDDD', 1920, 1080, 'ff001f')
+    setScrollFactor('REDDD', 0, 0)
+    addLuaSprite('REDDD', false)
+    setProperty('REDDD.alpha', 0)
     setProperty('void.alpha', 0)
     setProperty('void2.alpha', 0)
     makeLuaSprite('lightthing', 'suicideStreet/light', -800, -200)
@@ -58,6 +64,15 @@ function onCreate()
     initLuaShader('textureBlur')
 end
 
+function onCreatePost()
+    if not savedBasePositions then
+        baseHudPositionX = getProperty('camHUD.x') or 0
+        baseHudPositionY = getProperty('camHUD.y') or 0
+        baseGamePositionX = getProperty('camGame.x') or 0
+        baseGamePositionY = getProperty('camGame.y') or 0
+        savedBasePositions = true
+    end
+end
 
 -- DONT USE THIS FUNCTION, ITS BUGGY AF
 local function CenterCam(tweentime, finish) -- put anything in finish to finish
@@ -74,6 +89,20 @@ end
 -- DONT USE THIS FUNCTION, ITS BUGGY AF
 
 function onStepHit()
+    if bounceonbeat == true and curStep % 4 == 2 then
+        local gameZoom = getProperty('camGame.zoom')
+        local hudZoom = getProperty('camHUD.zoom')
+        triggerEvent('Add Camera Zoom', '0.02', '0')
+        if gameZoom < 0.7 then
+            gameZoom = gameZoom + 0.035
+            if gameZoom > 0.7 then gameZoom = 0.7 end
+            setProperty('camGame.zoom', gameZoom)
+        end
+        if hudZoom ~= nil then
+            setProperty('camHUD.zoom', hudZoom + 0.04)
+        end
+    end
+
     if curStep == 129 then
         doTweenAlpha('heavenstween', 'lightthing', 0.5, 9)
         doTweenZoom('camGameTween', 'camGame', 0.68, 3, 'sineOut')
@@ -85,7 +114,6 @@ function onStepHit()
 
     if curStep == 249 then
         setProperty('void.alpha', 1)
-        setProperty('health', 1)
         doTweenAlpha('heavenstween', 'lightthing', 0, 0.01)
     end
 
@@ -149,18 +177,75 @@ function onStepHit()
         CenterCam(1, 'end')
     end
 
-end
+    if curStep == 704 or curStep == 851 then
+        bounceonbeat = true
+    end
 
-function onCreatePost()
-    if not savedBasePositions then
-        baseHudPositionX = getProperty('camHUD.x') or 0
-        baseHudPositionY = getProperty('camHUD.y') or 0
-        baseGamePositionX = getProperty('camGame.x') or 0
-        baseGamePositionY = getProperty('camGame.y') or 0
-        savedBasePositions = true
+    if curStep == 832 or curStep == 1152 then
+        bounceonbeat = false
+    end
+
+    if curStep == 1217 then
+        setProperty('camHUD.alpha', 0)
+        setProperty('REDDD.alpha', 1)
+        setProperty('boyfriend.color', getColorFromHex('000000'))
+        setProperty('dad.color', getColorFromHex('000000'))
+    end
+
+    if curStep == 1228 or curStep == 1230 or curStep == 1232 then
+        setProperty('void.alpha', 1) 
+    end
+
+    if curStep == 1227 or curStep == 1229 or curStep == 1231 then
+        setProperty('void.alpha', 0) 
+    end
+
+    if curStep == 1233 then
+        setProperty('void.alpha', 0)
+        setProperty('boyfriend.color', getColorFromHex('FFFFFF'))
+        setProperty('dad.color', getColorFromHex('FFFFFF'))
+        setProperty('REDDD.alpha', 0)
+        setProperty('camHUD.alpha', 1)
+        doTweenAlpha('BGdarktween', 'BGdark', 1, 3.5, 'sine')
     end
 end
 
+function goodNoteHit(id, direction, noteType, isSustainNote)
+    if isSustainNote then
+        setProperty('health', getProperty('health') + 0.008)
+    end
+end
+
+function opponentNoteHit(id, direction, noteType, isSustainNote)
+    if getProperty('dad.curCharacter') == "mickeyDejection" then
+        if getProperty('health') > 0.15 then
+            setProperty('health', getProperty('health') - 0.006)
+        end
+    end
+
+    if getProperty('dad.curCharacter') == "mickeyUS1P1" then
+        if getProperty('health') > 0.15 then
+            setProperty('health', getProperty('health') - 0.009)
+        end
+    end
+    
+    if getProperty('dad.curCharacter') == "mickeyUS1" or getProperty('dad.curCharacter') == "mickeyUS2" or getProperty('dad.curCharacter') == "mickeySyringe" then
+        if getProperty('health') > 0.25 then
+            setProperty('health', getProperty('health') - 0.013)
+        end
+    end
+
+    if getProperty('dad.curCharacter') == "mickeyUS3" then
+        if getProperty('health') > 0.3 then
+            setProperty('health', getProperty('health') - 0.015)
+        end
+    end
+
+    local currentDadCharacter = getProperty('dad.curCharacter')
+    if currentDadCharacter == 'mickeyUS1' or currentDadCharacter == 'mickeyUS2' or currentDadCharacter == 'mickeyUS3' or currentDadCharacter == 'mickeyUS1P1' then
+        shakeCameras(0.6, 0.6, 0.1)
+    end
+end
 
 function onTimerCompleted(tag, loops, loopsLeft)
     if tag == 'shake_return' then
@@ -216,10 +301,4 @@ local function shakeCameras(pixelOffsetX, pixelOffsetY, duration)
     if successHudShake and successGameShake then return end
 
     performPixelShake(pixelOffsetX, pixelOffsetY, duration)
-end
-
-function goodNoteHit(id, direction, noteType, isSustainNote)
-    if isSustainNote then
-        setProperty('health', getProperty('health') + 0.008)
-    end
 end
