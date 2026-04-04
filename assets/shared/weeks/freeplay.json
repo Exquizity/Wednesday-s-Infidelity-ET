@@ -5,11 +5,16 @@
 	"weekBackground": "stage",
 	"weekBefore": "tutorial",
 	"startUnlocked": true,
+	"weekCharacters": [
+		"bf",
+		"bf",
+		"gf"
+	],
 	"hideStoryMode": true,
 	"songs": [
 		[
-			"dragged",
-			"mickeyprison",
+			"untold-loneliness",
+			"Oswald",
 			[
 				146,
 				113,
@@ -17,7 +22,7 @@
 			]
 		],
 		[
-			"hellhole",
+			"dragged",
 			"mickeyFinal",
 			[
 				146,
@@ -26,8 +31,17 @@
 			]
 		],
 		[
-			"megrims",
+			"hellhole",
 			"oswaldsmile",
+			[
+				146,
+				113,
+				253
+			]
+		],
+		[
+			"megrims",
+			"mickeyInsane",
 			[
 				146,
 				113,
@@ -45,15 +59,6 @@
 		],
 		[
 			"perpetual-suffering",
-			"mickeyInsane",
-			[
-				146,
-				113,
-				253
-			]
-		],
-		[
-			"tristophobia",
 			"dejectionM",
 			[
 				146,
@@ -62,7 +67,7 @@
 			]
 		],
 		[
-			"unbearable-pain",
+			"tristophobia",
 			"mouse",
 			[
 				146,
@@ -71,7 +76,7 @@
 			]
 		],
 		[
-			"nightcore",
+			"unbearable-pain",
 			"",
 			[
 				146,
@@ -80,8 +85,17 @@
 			]
 		],
 		[
-			"Another-Side-To-The-Story",
+			"nightcore",
 			"Oswald",
+			[
+				146,
+				113,
+				253
+			]
+		],
+		[
+			"Another-Side-To-The-Story",
+			"face",
 			[
 				146,
 				113,
@@ -116,11 +130,6 @@
 			]
 		]
 	],
-	"weekCharacters": [
-		"bf",
-		"bf",
-		"gf"
-	],
-	"hiddenUntilUnlocked": false,
-	"weekName": "Custom Week"
+	"weekName": "Custom Week",
+	"hiddenUntilUnlocked": false
 }
